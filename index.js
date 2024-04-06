@@ -2,6 +2,11 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express();
 
+
+// middleware so that app can understand json
+app.use(express.json())
+
+
 app.get('/', (req, res) => {
 
     res.send("Hello Express")
@@ -13,6 +18,10 @@ app.get('/blog', (req, res) => {
 })
 
 
+app.post('/product', (req, res)=>{
+    console.log(req.body)
+    res.send(req.body)
+})
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/expressAPI')
