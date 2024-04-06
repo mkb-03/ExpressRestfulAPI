@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express();
-
+const Product = require('./models/productModels')
 
 // middleware so that app can understand json
 app.use(express.json())
@@ -18,9 +18,18 @@ app.get('/blog', (req, res) => {
 })
 
 
-app.post('/product', (req, res)=>{
-    console.log(req.body)
-    res.send(req.body)
+app.post('/product', async (req, res)=>{
+    
+    try {
+        
+        const product = await Product.create(req.body)
+        res.status(200).json(product)
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({message : error.message})
+    }
+
 })
 
 
